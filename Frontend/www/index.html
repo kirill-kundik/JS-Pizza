@@ -2,74 +2,62 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Pizza</title>
+    <title>b0nf1re's pizza</title>
 
     <!-- Bootsrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!-- LESS основний файл -->
-    <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
+    <link rel="stylesheet/less" type="text/css" href="assets/less/main.less"/>
     <!-- LESS JavaScript компілятор -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
-
-
 </head>
 <body>
 <div id="cart"></div>
 <div class="container">
-    <div class="row" id="pizza_list">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail pizza-card">
-                <img src="assets/images/pizza_1.jpg">
-
-                <div class="caption"><h3>Thumbnail label</h3>
-
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-
-                    <p>
-                        <a href="#" class="btn btn-primary">Button 2</a>
-                        <a href="#" class="btn btn-default">Button 1</a>
-                    </p>
-                </div>
+    <div class="main-site col-lg-9 col-md-8 col-sm-7 col-xs-6">
+        <div class="inner">
+            <div class="label">Усі піци</div>
+            <div class="counter">8</div>
+            <div class="buttons"><a href="#" class="btn btn-default">Button 1</a>
+                <a href="#" class="btn btn-default">Button 2</a>
+                <a href="#" class="btn btn-default">Button 3</a>
+                <a href="#" class="btn btn-default">Button 4</a>
+                <a href="#" class="btn btn-default">Button 5</a>
             </div>
         </div>
-
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail pizza-card">
-                <img src="assets/images/pizza_2.jpg">
-
-                <div class="caption"><h3>Thumbnail label</h3>
-
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-
-                    <p>
-                        <a href="#" class="btn btn-primary">Button 3</a>
-                        <a href="#" class="btn btn-default">Button 4</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail pizza-card">
-                <img src="assets/images/pizza_3.jpg">
-
-                <div class="caption"><h3>Thumbnail label</h3>
-
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-
-                    <p>
-                        <a href="#" class="btn btn-primary">Button 5</a>
-                        <a href="#" class="btn btn-default">Button 6</a>
-                    </p>
+        <div class="row" id="pizza_list">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail pizza-card">
+                    <img src="assets/images/pizza_1.jpg">
+                    <div class="caption"><h3>Імпреза</h3>
+                        <div class="small-description">М'ясна піца</div>
+                        <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна паста,
+                            петрушка</p>
+                        <div class="left-info col-xs-6">
+                            <div class="diameter">30</div>
+                            <div class="weight">600</div>
+                            <div class="price">99</div>
+                            <a href="#" class="btn btn-default">Купити</a>
+                        </div>
+                        <div class="right-info col-xs-6">
+                            <div class="diameter">30</div>
+                            <div class="weight">600</div>
+                            <div class="price">99</div>
+                            <a href="#" class="btn btn-default">Купити</a>
+                        </div>
+                        <p class="empty">.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="right-column col-lg-3 col-md-4 col-sm-5 col-xs-6"></div>
 </div>
+<div class="header col-lg-9 col-md-8 col-sm-7 col-xs-6"></div>
 
 <!-- jQuery JavaScript -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <!--Bootsrap JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

@@ -1,3 +1,44 @@
-@mainColor: blue;
+@mainColor: orange;
+@color-one-button: #ffac00;
+@color-two-button: #ffcc1b;
 
 @import "pizza/pizza-card";
+@import "pizza/header";
+@import "pizza/inner";
+@import "pizza/right-column";
+
+body {
+
+  .btn {
+
+    display: inline-block;
+
+    background: linear-gradient(@color-one-button, @color-two-button);
+    color: white;
+
+    border: 1px solid @mainColor;
+
+  }
+
+  .btn:hover {
+
+    color: white;
+    border: 1px solid @mainColor;
+
+  }
+
+  .btn:link {
+
+    color: white;
+    border: 1px solid @mainColor;
+
+  }
+
+  .btn:visited {
+
+    color: white;
+    border: 1px solid @mainColor
+
+  }
+
+}
