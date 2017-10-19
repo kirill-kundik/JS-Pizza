@@ -1,3 +1,6 @@
+@headerFontColor: #a1a1a1;
+@headerHeight: 75px;
+
 .header {
 
   position: fixed;
@@ -6,9 +9,59 @@
 
   display: inline-block;
 
-  height: 50px;
+  height: @headerHeight;
 
-  background-color: rgba(0, 0, 0, 0.85);
-  padding: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 5px 25px 5px 150px;
 
+  .upper {
+
+    border-bottom: 1px @headerFontColor solid;
+    padding-bottom: 5px;
+
+    .sign-in {
+
+      transform: scale(0.75);
+      float: right;
+      box-sizing: border-box;
+
+    }
+
+    .phone-number {
+
+      color: @headerFontColor;
+      font-size: 20px;
+      margin-right: 25px;
+      box-sizing: border-box;
+
+    }
+
+    .working-hours {
+
+      color: @headerFontColor;
+      font-size: 14px;
+      margin-right: 25px;
+
+    }
+
+    .motto {
+
+      color: @headerFontColor;
+      font-size: 16px;
+
+    }
+  }
+
+  .downer {
+
+    padding-top: 7px;
+
+    .label-pizza {
+
+      color: white;
+      font-size: 16px;
+
+    }
+
+  }
 }
