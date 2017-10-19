@@ -1,6 +1,7 @@
 @mainColor: orange;
 @color-one-button: #ffac00;
 @color-two-button: #ffcc1b;
+@rightColumnWidth: 330px;
 
 @import "pizza/pizza-card";
 @import "pizza/header";
@@ -11,6 +12,13 @@
 body {
 
   background-color: #fff0d6;
+
+  .main-site {
+
+    padding: 0 @rightColumnWidth+25px 0 25px;
+    height: 100%;
+
+  }
 
   .btn {
 
