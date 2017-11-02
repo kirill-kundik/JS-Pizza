@@ -14,24 +14,42 @@ var Cart = [];
 
 //HTML едемент куди будуть додаватися піци
 var $cart = $("#cart");
+var $header_cart = $(".orders-header");
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
 
-    //Приклад реалізації, можна робити будь-яким іншим способом
-    Cart.push({
-        pizza: pizza,
-        size: size,
-        quantity: 1
+    var added = false;
+
+    Cart.forEach(function (cart_item) {
+        if (!added) {
+            if (cart_item.pizza === pizza && cart_item.size === size) {
+
+                console.log("NICK MARHAL (IPZ-16) LOX, prost)))0) 4tob znali");
+                cart_item.quantity += 1;
+                added = true;
+
+            }
+        }
     });
 
+    //Приклад реалізації, можна робити будь-яким іншим способом
+    if (!added) {
+        Cart.push({
+            pizza: pizza,
+            size: size,
+            quantity: 1
+        });
+    }
     //Оновити вміст кошика на сторінці
     updateCart();
 }
 
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
-    //TODO: треба зробити
+
+    var i = Cart.indexOf(cart_item);
+    Cart.splice(i, 1);
 
     //Після видалення оновити відображення
     updateCart();
@@ -50,6 +68,12 @@ function getPizzaInCart() {
     return Cart;
 }
 
+function clearCart() {
+
+    Cart.splice(0, Cart.length);
+
+}
+
 function updateCart() {
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
@@ -63,9 +87,38 @@ function updateCart() {
 
         var $node = $(html_code);
 
-        $node.find(".plus").click(function(){
+        var sum = cart_item.quantity * cart_item.pizza[cart_item.size].price;
+        $node.find(".price").text(sum);
+
+        $node.find(".plus").click(function () {
             //Збільшуємо кількість замовлених піц
             cart_item.quantity += 1;
+            //Оновлюємо відображення
+            updateCart();
+        });
+
+        $node.find(".minus").click(function () {
+            //Зменуємо кількість замовлених піц
+            cart_item.quantity -= 1;
+            if (cart_item.quantity <= 0) {
+                removeFromCart(cart_item);
+            }
+
+            //Оновлюємо відображення
+            updateCart();
+        });
+
+        $node.find(".remove").click(function () {
+            //Видаляємо замовлену піцу
+            removeFromCart(cart_item);
+            //Оновлюємо відображення
+            updateCart();
+        });
+
+        $header_cart.find(".button-clear").click(function () {
+            //Збільшуємо кількість замовлених піц
+            console.log("Maks LOX, sry novaya paskhalo4ka :)");
+            clearCart();
 
             //Оновлюємо відображення
             updateCart();
@@ -75,6 +128,17 @@ function updateCart() {
     }
 
     Cart.forEach(showOnePizzaInCart);
+    $header_cart.find(".counter").text(Cart.length);
+
+    var sum = 0;
+    Cart.forEach(function (t) {
+
+        sum += parseInt(t.pizza[t.size].price) * parseInt(t.quantity);
+
+    });
+    console.log(sum);
+
+    $(".orders-footer").find(".amount").text(sum);
 
 }
 

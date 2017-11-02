@@ -69,17 +69,28 @@
 
             text-decoration: none;
 
+            border: 0;
+            background: transparent;
+
         }
 
         .link:hover {
 
             text-decoration: none;
+            border: 0;
 
         }
 
         .link:active {
 
             text-decoration: none;
+            border: 0;
+
+        }
+
+        .link:visited {
+
+            border: 0;
 
         }
 
@@ -155,6 +166,10 @@
 
     .order-list {
 
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 75%;
+
         .item {
 
             position: relative;
@@ -179,12 +194,6 @@
 
                 font-size: 22px;
                 color: @mainColor;
-
-            }
-
-            .name::after {
-
-                content: " (Мала)";
 
             }
 

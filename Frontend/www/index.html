@@ -13,141 +13,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 </head>
 <body>
-<div id="cart"></div>
 <div class="container-fluid">
     <div class="main-site">
         <div class="inner">
             <div class="label">Усі піци</div>
             <div class="counter">8</div>
             <div class="buttons">
-                <a href="#" class="btn btn-default">Усі</a>
-                <a href="#" class="btn btn-default">М'ясні</a>
-                <a href="#" class="btn btn-default">З ананасами</a>
-                <a href="#" class="btn btn-default">З морепродуктами</a>
-                <a href="#" class="btn btn-default">Вега</a>
+                <a class="btn btn-default">Усі</a>
+                <a class="btn btn-default">М'ясні</a>
+                <a class="btn btn-default">З ананасами</a>
+                <a class="btn btn-default">З морепродуктами</a>
+                <a class="btn btn-default">Вега</a>
             </div>
         </div>
         <div class="row" id="pizza_list">
-            <div class="col-sm-6 col-md-4 pizza-card">
-                <div class="thumbnail">
-                    <span class="label label-danger">KPACUBO</span>
-                    <img src="assets/images/pizza_1.jpg">
-                    <div class="caption"><h3>Імпреза</h3>
-                        <div class="small-description">М'ясна піца</div>
-                        <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна паста,
-                            петрушка</p>
-                        <div class="left-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
+            <template>
+                <div class="col-sm-6 col-md-4 pizza-card">
+                    <div class="thumbnail">
+                        <span class="label label-danger">KPACUBO</span>
+                        <img src="assets/images/pizza_1.jpg">
+                        <div class="caption"><h3>Імпреза</h3>
+                            <div class="small-description">М'ясна піца</div>
+                            <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна
+                                паста,
+                                петрушка</p>
+                            <div class="left-info col-xs-6">
+                                <div class="diameter">30</div>
+                                <div class="weight">600</div>
+                                <div class="price">99</div>
+                                <a class="btn btn-default">Купити</a>
+                            </div>
+                            <div class="right-info col-xs-6">
+                                <div class="diameter">30</div>
+                                <div class="weight">600</div>
+                                <div class="price">99</div>
+                                <a class="btn btn-default">Купити</a>
+                            </div>
+                            <p class="empty">.</p>
                         </div>
-                        <div class="right-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <p class="empty">.</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-md-4 pizza-card">
-                <div class="thumbnail">
-                    <span class="label label-danger">Нова</span>
-                    <img src="assets/images/pizza_1.jpg">
-                    <div class="caption"><h3>Імпреза</h3>
-                        <div class="small-description">М'ясна піца</div>
-                        <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна паста,
-                            петрушка</p>
-                        <div class="left-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <div class="right-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <p class="empty">.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 pizza-card">
-                <div class="thumbnail">
-                    <span class="label label-danger">Нова</span>
-                    <img src="assets/images/pizza_1.jpg">
-                    <div class="caption"><h3>Імпреза</h3>
-                        <div class="small-description">М'ясна піца</div>
-                        <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна паста,
-                            петрушка</p>
-                        <div class="left-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <div class="right-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <p class="empty">.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 pizza-card">
-                <div class="thumbnail">
-                    <span class="label label-danger">Нова</span>
-                    <img src="assets/images/pizza_1.jpg">
-                    <div class="caption"><h3>Імпреза</h3>
-                        <div class="small-description">М'ясна піца</div>
-                        <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна паста,
-                            петрушка</p>
-                        <div class="left-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <div class="right-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <p class="empty">.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 pizza-card">
-                <div class="thumbnail">
-                    <span class="label label-danger">Нова</span>
-                    <img src="assets/images/pizza_1.jpg">
-                    <div class="caption"><h3>Імпреза4</h3>
-                        <div class="small-description">М'ясна піца</div>
-                        <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна паста,
-                            петрушка</p>
-                        <div class="left-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <div class="right-info col-xs-6">
-                            <div class="diameter">30</div>
-                            <div class="weight">600</div>
-                            <div class="price">99</div>
-                            <a href="#" class="btn btn-default">Купити</a>
-                        </div>
-                        <p class="empty">.</p>
-                    </div>
-                </div>
-            </div>
+            </template>
         </div>
     </div>
 </div>
@@ -158,48 +64,50 @@
         </div>
         <div class="working-hours visible-lg-inline-block visible-md-inline-block">24 години/ 7 днів на тиждень</div>
         <div class="motto visible-lg-inline-block">Безкоштовна доставка піци</div>
-        <a href="#" class="btn btn-default sign-in hidden-xs">Ввійти</a>
+        <a class="btn btn-default sign-in hidden-xs">Ввійти</a>
     </div>
     <div class="downer">
         <div class="label-pizza visible-lg-inline-block visible-md-inline-block visible-sm-inline-block">Піца</div>
-        <a href="#" class="btn btn-default sign-in visible-xs-inline-block">Ввійти</a>
+        <a class="btn btn-default sign-in visible-xs-inline-block">Ввійти</a>
     </div>
 </div>
 <div class="right-column">
     <div class="orders-header">
         <div class="label">Замовлення</div>
-        <div class="counter">2</div>
-        <a href="#" class="link">Очистити кошик</a>
+        <div class="counter">0</div>
+        <button class="link button-clear">Очистити кошик</button>
     </div>
-    <div class="order-list">
-        <div class="item">
-            <div class="name">Імпреза</div>
-            <div class="description">
-                <div class="diameter">30</div>
-                <div class="weight">650</div>
-            </div>
-            <div class="buttons">
-                <div class="price">199</div>
-                <div class="buttons-count">
-                    <a href="#" class="btn btn-default minus button-round">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </a>
-                    <div class="counter">2</div>
-                    <a href="#" class="btn btn-default plus button-round">
-                        <span class="glyphicon glyphicon-plus"></span>
+    <div class="order-list" id="cart">
+        <template>
+            <div class="item">
+                <div class="name">Імпреза</div>
+                <div class="description">
+                    <div class="diameter">30</div>
+                    <div class="weight">650</div>
+                </div>
+                <div class="buttons">
+                    <div class="price">199</div>
+                    <div class="buttons-count">
+                        <a class="btn btn-default minus button-round">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                        <div class="counter">2</div>
+                        <a class="btn btn-default plus button-round">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                    </div>
+                    <a class="btn btn-default remove button-round">
+                        <span class="glyphicon glyphicon-remove"></span>
                     </a>
                 </div>
-                <a href="#" class="btn btn-default remove button-round">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
+                <img class="pizza-img" src="assets/images/pizza_1.jpg">
             </div>
-            <img class="pizza-img" src="assets/images/pizza_1.jpg">
-        </div>
+        </template>
     </div>
     <div class="orders-footer">
         <div class="label">Сума замовлення</div>
-        <div class="amount">1488</div>
-        <a href="#" class="btn btn-default">Замовити</a>
+        <div class="amount">0</div>
+        <a class="btn btn-default">Замовити</a>
     </div>
 </div>
 <div class="top-budge">
@@ -220,6 +128,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!--Own JavaScript -->
-<!--<script type="text/javascript"  src="assets/js/main.js"> </script>-->
+<script type="text/javascript"  src="assets/js/main.js"> </script>
 </body>
 </html>
