@@ -130,10 +130,32 @@ function updateCart() {
             updateCart();
         });
 
+        if (document.location.href == "http://localhost:5050/order.html") {
+
+            $node.find(".plus").css("display", "none");
+            $node.find(".minus").css("display", "none");
+            $node.find(".remove").css("display", "none");
+
+            var piz = "";
+
+            if (cart_item.quantity == 1) piz = "піца";
+            else if (cart_item.quantity % 10 == 2 || cart_item.quantity % 10 == 3 || cart_item.quantity % 10 == 4) piz = "піци";
+            else piz = "піц";
+
+            $node.find(".counter").text(cart_item.quantity + " " + piz);
+
+        } else {
+
+            $node.find(".plus").css("display", "inline-block");
+            $node.find(".minus").css("display", "inline-block");
+            $node.find(".remove").css("display", "inline-block");
+            $node.find(".counter").text(cart_item.quantity);
+
+        }
+
         $cart.append($node);
     }
 
-    Cart.forEach(showOnePizzaInCart);
     $header_cart.find(".counter").text(Cart.length);
 
     var sum = 0;
@@ -144,11 +166,30 @@ function updateCart() {
     });
     console.log(sum);
 
+    if (document.location.href == "http://localhost:5050/order.html") {
+
+        $header_cart.find(".button-clear").css("visibility", "hidden");
+
+    } else {
+
+        $header_cart.find(".button-clear").css("visibility", "visible");
+    }
+
     $(".orders-footer").find(".amount").text(sum);
+
+    if (Cart.length < 1) {
+        $(".submit-order").attr("disabled", true);
+    } else {
+        Cart.forEach(showOnePizzaInCart);
+        $(".submit-order").attr("disabled", false);
+    }
 
     orders = Cart;
     storage.set("cart", orders);
 
+    $(".submit-order").click(function () {
+        document.location.href = "http://localhost:5050/order.html";
+    });
 }
 
 exports.removeFromCart = removeFromCart;

@@ -1,5 +1,47 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
+ * Created by chaika on 09.02.16.
+ */
+var API_URL = "http://localhost:5050";
+
+function backendGet(url, callback) {
+    $.ajax({
+        url: API_URL + url,
+        type: 'GET',
+        success: function(data){
+            callback(null, data);
+        },
+        error: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+function backendPost(url, data, callback) {
+    $.ajax({
+        url: API_URL + url,
+        type: 'POST',
+        contentType : 'application/json',
+        data: JSON.stringify(data),
+        success: function(data){
+            callback(null, data);
+        },
+        error: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+exports.getPizzaList = function(callback) {
+    backendGet("/api/get-pizza-list/", callback);
+};
+
+exports.createOrder = function(order_info, callback) {
+    backendPost("/api/create-order/", order_info, callback);
+};
+
+},{}],2:[function(require,module,exports){
+/**
  * created by Kirill on 2.12.2017
  */
 
@@ -13,7 +55,7 @@ exports.get = function(key) {
 exports.set = function(key, value) {
     return basil.set(key, value);
 };
-},{"basil.js":7}],2:[function(require,module,exports){
+},{"basil.js":9}],3:[function(require,module,exports){
 /**
  * Created by diana on 12.01.16.
  */
@@ -191,7 +233,7 @@ var pizza_info = [
 ];
 
 module.exports = pizza_info;
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -203,23 +245,31 @@ exports.PizzaMenu_OneItem = ejs.compile("<%\r\nfunction getIngredientsArray(pizz
 
 exports.PizzaCart_OneItem = ejs.compile("<div class=\"item\">\r\n    <div class=\"name\"><%= pizza.title %>(<%= (size == \"big_size\" ? 'Велика' : 'Мала') %>)</div>\r\n    <div class=\"description\">\r\n        <div class=\"diameter\"><%= pizza[size].size%></div>\r\n        <div class=\"weight\"><%= pizza[size].weight%></div>\r\n    </div>\r\n    <div class=\"buttons\">\r\n        <div class=\"price\"><%= pizza[size].price%></div>\r\n        <div class=\"buttons-count\">\r\n            <a class=\"btn btn-default minus button-round\">\r\n                <span class=\"glyphicon glyphicon-minus\"></span>\r\n            </a>\r\n            <div class=\"counter\"><%= quantity%></div>\r\n            <a class=\"btn btn-default plus button-round\">\r\n                <span class=\"glyphicon glyphicon-plus\"></span>\r\n            </a>\r\n        </div>\r\n        <a class=\"btn btn-default remove button-round\">\r\n            <span class=\"glyphicon glyphicon-remove\"></span>\r\n        </a>\r\n    </div>\r\n    <img class=\"pizza-img\" src=<%= pizza.icon%>>\r\n</div>");
 
-},{"ejs":9}],4:[function(require,module,exports){
+},{"ejs":11}],5:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
 
 $(function(){
     //This code will execute when the page is ready
-    var PizzaMenu = require('./pizza/PizzaMenu');
     var PizzaCart = require('./pizza/PizzaCart');
-    var Pizza_List = require('./Pizza_List');
 
     PizzaCart.initialiseCart();
-    PizzaMenu.initialiseMenu();
 
+    if (document.location.href == "http://localhost:5050/order.html") {
+
+        var PizzaOrder = require('./pizza/PizzaOrder');
+        PizzaOrder.initializeOrder();
+
+    }else {
+
+        var PizzaMenu = require('./pizza/PizzaMenu');
+        PizzaMenu.initialiseMenu();
+
+    }
 
 });
-},{"./Pizza_List":2,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
+},{"./pizza/PizzaCart":6,"./pizza/PizzaMenu":7,"./pizza/PizzaOrder":8}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -352,10 +402,32 @@ function updateCart() {
             updateCart();
         });
 
+        if (document.location.href == "http://localhost:5050/order.html") {
+
+            $node.find(".plus").css("display", "none");
+            $node.find(".minus").css("display", "none");
+            $node.find(".remove").css("display", "none");
+
+            var piz = "";
+
+            if (cart_item.quantity == 1) piz = "піца";
+            else if (cart_item.quantity % 10 == 2 || cart_item.quantity % 10 == 3 || cart_item.quantity % 10 == 4) piz = "піци";
+            else piz = "піц";
+
+            $node.find(".counter").text(cart_item.quantity + " " + piz);
+
+        } else {
+
+            $node.find(".plus").css("display", "inline-block");
+            $node.find(".minus").css("display", "inline-block");
+            $node.find(".remove").css("display", "inline-block");
+            $node.find(".counter").text(cart_item.quantity);
+
+        }
+
         $cart.append($node);
     }
 
-    Cart.forEach(showOnePizzaInCart);
     $header_cart.find(".counter").text(Cart.length);
 
     var sum = 0;
@@ -366,11 +438,30 @@ function updateCart() {
     });
     console.log(sum);
 
+    if (document.location.href == "http://localhost:5050/order.html") {
+
+        $header_cart.find(".button-clear").css("visibility", "hidden");
+
+    } else {
+
+        $header_cart.find(".button-clear").css("visibility", "visible");
+    }
+
     $(".orders-footer").find(".amount").text(sum);
+
+    if (Cart.length < 1) {
+        $(".submit-order").attr("disabled", true);
+    } else {
+        Cart.forEach(showOnePizzaInCart);
+        $(".submit-order").attr("disabled", false);
+    }
 
     orders = Cart;
     storage.set("cart", orders);
 
+    $(".submit-order").click(function () {
+        document.location.href = "http://localhost:5050/order.html";
+    });
 }
 
 exports.removeFromCart = removeFromCart;
@@ -380,7 +471,7 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-},{"../LocalStorage":1,"../Templates":3}],6:[function(require,module,exports){
+},{"../LocalStorage":2,"../Templates":4}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -454,7 +545,177 @@ function initialiseMenu() {
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../Pizza_List":2,"../Templates":3,"./PizzaCart":5}],7:[function(require,module,exports){
+},{"../Pizza_List":3,"../Templates":4,"./PizzaCart":6}],8:[function(require,module,exports){
+/**
+ *  created by Kirill on 2.12.2017
+ */
+
+var API = require('../API');
+var PizzaCart = require('./PizzaCart');
+
+var Storage = require('../LocalStorage');
+var contact_info = {
+    name: "",
+    phone: "",
+    address: ""
+};
+
+var $next = $("#next-button");
+
+var GoogleMaps;
+var LiqPay;
+
+function nameValid() {
+
+    if (!/^[0-9A-Za-zА-Яа-яІіЇїЄєҐґ'/ -]+$/.test($("#inputName").val())) {
+
+        $(".name-group").removeClass("has-success").addClass("has-error");
+        $(".name-group").find(".help-block").css("display", "inline-block");
+
+        return false;
+
+    } else {
+
+        $(".name-group").removeClass("has-error").addClass("has-success");
+        $(".name-group").find(".help-block").css("display", "none");
+
+        contact_info.name = $("#inputName").val();
+        Storage.set("info", contact_info);
+
+        return true;
+
+    }
+
+}
+
+function phoneValid() {
+
+    function phoneValid() {
+
+        if ((!/^[+]?(38)?([0-9]{10})$/.test($("#inputPhone").val()) && (!/^0?([0-9]{9})$/.test($("#inputPhone").val())))) {
+
+            $(".phone-group").removeClass("has-success").addClass("has-error");
+            $(".phone-group").find(".help-block").css("display", "inline-block");
+
+            return false;
+
+        } else {
+
+            $(".phone-group").removeClass("has-error").addClass("has-success");
+            $(".phone-group").find(".help-block").css("display", "none");
+
+            contact_info.phone = $("#inputPhone").val();
+            Storage.set("info", contact_info);
+
+            return true;
+        }
+    }
+
+}
+
+function addressValid() {
+
+    //TODO googlemaps check...
+
+    return true;
+
+}
+
+function readData() {
+
+    addressValid();
+
+    var valid = nameValid() && phoneValid();
+
+    if (valid) {
+
+        API.createOrder({
+            name: $("#inputName").val(),
+            phone: $("#inputPhone").val(),
+            address: $("#inputAddress").val(),
+            order: PizzaCart.getPizzaInCart()
+        }, function (err, data) {
+
+            if (err) {
+
+                alert("Щось пішло не так...");
+                return console.log("API.createOrder() failed. Call in PizzaOrder.js.");
+
+            } else {
+
+                //TODO liqpay checkout...
+
+            }
+        });
+
+    } else {
+        alert("Будь ласка, заповніть всі поля!");
+    }
+
+}
+
+function initializeOrder() {
+
+    var contact_info = Storage.get("info");
+
+    if (contact_info) {
+
+        if (contact_info.name) {
+
+            $("#inputName").val(contact_info.name);
+            nameValid();
+
+        }
+
+        if (contact_info.phone) {
+
+            $("#inputPhone").val(contact_info.phone);
+            phoneValid();
+
+        }
+
+        if (contact_info.address) {
+
+            $("#inputAddress").val(contact_info.address);
+            addressValid();
+
+        }
+
+    }
+
+    $("#return-to-list").click(function () {
+
+        document.location.href = "http://localhost:5050/";
+
+    });
+}
+
+$("#inputName").keyup(function () {
+
+    nameValid();
+
+});
+
+$("#inputPhone").keyup(function () {
+
+    phoneValid();
+
+});
+
+$("#inputAddress").keyup(function (key) {
+
+    if (key.keyCode == 13) addressValid();
+
+});
+
+$next.click(function () {
+
+    readData();
+
+});
+
+exports.initializeOrder = initializeOrder;
+},{"../API":1,"../LocalStorage":2,"./PizzaCart":6}],9:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -842,9 +1103,9 @@ exports.initialiseMenu = initialiseMenu;
 
 })();
 
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1712,7 +1973,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":11,"./utils":10,"fs":8,"path":12}],10:[function(require,module,exports){
+},{"../package.json":13,"./utils":12,"fs":10,"path":14}],12:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1878,7 +2139,7 @@ exports.cache = {
   }
 };
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports={
   "_from": "ejs@^2.4.1",
   "_id": "ejs@2.5.7",
@@ -1959,7 +2220,7 @@ module.exports={
   "version": "2.5.7"
 }
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2187,7 +2448,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":13}],13:[function(require,module,exports){
+},{"_process":15}],15:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2373,4 +2634,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[4]);
+},{}]},{},[5]);

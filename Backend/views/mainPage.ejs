@@ -1,7 +1,50 @@
-<% include common/header.ejs %>
+<% include common/pageHeader.ejs %>
 
-<div class="">
-    Main Page Content
+<div class="container-fluid">
+    <div class="main-site">
+        <div class="inner">
+            <div class="label">Усі піци</div>
+            <div class="counter" id="by-type">8</div>
+            <div class="buttons">
+                <a class="fbut btn pressed" id="all">Усі</a>
+                <a class="fbut btn" id="meat">М'ясні</a>
+                <a class="fbut btn" id="pineapple">З ананасами</a>
+                <a class="fbut btn" id="ocean">З морепродуктами</a>
+                <a class="fbut btn" id="vegan">Вега</a>
+            </div>
+        </div>
+        <div class="row" id="pizza_list">
+            <template>
+                <div class="col-sm-6 col-md-4 pizza-card">
+                    <div class="thumbnail">
+                        <span class="label label-danger">KPACUBO</span>
+                        <img src="assets/images/pizza_1.jpg">
+                        <div class="caption"><h3>Імпреза</h3>
+                            <div class="small-description">М'ясна піца</div>
+                            <p class="description">Балик, салямі, куриця, сир моцарела, сир рокфорд, ананаси, томатна
+                                паста,
+                                петрушка</p>
+                            <div class="left-info col-xs-6">
+                                <div class="diameter">30</div>
+                                <div class="weight">600</div>
+                                <div class="price">99</div>
+                                <a class="btn btn-default">Купити</a>
+                            </div>
+                            <div class="right-info col-xs-6">
+                                <div class="diameter">30</div>
+                                <div class="weight">600</div>
+                                <div class="price">99</div>
+                                <a class="btn btn-default">Купити</a>
+                            </div>
+                            <p class="empty">.</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
 </div>
-
+<% include common/header.ejs %>
+<% include common/orderColumn.ejs %>
+<% include common/budges.ejs %>
 <% include common/footer.ejs %>
