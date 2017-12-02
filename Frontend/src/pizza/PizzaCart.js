@@ -12,6 +12,8 @@ var PizzaSize = {
 //Змінна в якій зберігаються перелік піц в кошику
 var Cart = [];
 
+var storage = require('../LocalStorage');
+
 //HTML едемент куди будуть додаватися піци
 var $cart = $("#cart");
 var $header_cart = $(".orders-header");
@@ -58,7 +60,11 @@ function removeFromCart(cart_item) {
 function initialiseCart() {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
-    //TODO: ...
+    var orders = storage.get("cart");
+
+    if (orders) {
+        Cart = orders;
+    }
 
     updateCart();
 }
@@ -139,6 +145,9 @@ function updateCart() {
     console.log(sum);
 
     $(".orders-footer").find(".amount").text(sum);
+
+    orders = Cart;
+    storage.set("cart", orders);
 
 }
 

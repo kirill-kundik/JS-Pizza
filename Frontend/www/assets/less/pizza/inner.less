@@ -1,35 +1,55 @@
 .inner {
 
-  display: inline-block;
-  padding-top: 100px;
-  padding-bottom: 30px;
-
-  text-align: center;
-  width: 100%;
-
-  .label {
-
     display: inline-block;
-    font-size: 25px;
-    font-weight: 700;
-    color: black;
-    padding-bottom: 20px;
+    padding-top: 100px;
+    padding-bottom: 30px;
 
-  }
+    text-align: center;
+    width: 100%;
 
-  .counter {
+    .btn {
+        background: transparent;
+        color: @mainColor;
+    }
 
-    display: inline-block;
-    font-size: 17px;
-    font-weight: 700;
+    .pressed {
+        background: @mainColor;
+        color: white;
+    }
 
-    color: white;
-    background-color: @mainColor;
+    .btn:hover {
+        background: antiquewhite;
+        color: @mainColor;
+    }
 
-    border-radius: 50rem;
+    .pressed:hover {
+        background: darken(@mainColor, 5%);
+        color: white;
+    }
 
-    padding: 0 7px;
+    .label {
 
-  }
+        display: inline-block;
+        font-size: 25px;
+        font-weight: 700;
+        color: black;
+        padding-bottom: 20px;
+
+    }
+
+    .counter {
+
+        display: inline-block;
+        font-size: 17px;
+        font-weight: 700;
+
+        color: white;
+        background-color: @mainColor;
+
+        border-radius: 50rem;
+
+        padding: 0 7px;
+
+    }
 
 }
