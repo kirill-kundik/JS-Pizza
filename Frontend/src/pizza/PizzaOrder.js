@@ -14,8 +14,8 @@ var contact_info = {
 
 var $next = $("#next-button");
 
-var GoogleMaps;
-var LiqPay;
+var GoogleMaps = require('../GoogleMaps');
+var LiqPay = require('../LiqPay');
 
 function nameValid() {
 
@@ -42,8 +42,6 @@ function nameValid() {
 
 function phoneValid() {
 
-    function phoneValid() {
-
         if ((!/^[+]?(38)?([0-9]{10})$/.test($("#inputPhone").val()) && (!/^0?([0-9]{9})$/.test($("#inputPhone").val())))) {
 
             $(".phone-group").removeClass("has-success").addClass("has-error");
@@ -60,16 +58,44 @@ function phoneValid() {
             Storage.set("info", contact_info);
 
             return true;
-        }
-    }
+
 
 }
 
 function addressValid() {
 
-    //TODO googlemaps check...
+    GoogleMaps.geocodeAddress($("#inputAddress").val(), function (err, location) {
 
-    return true;
+        if (err) {
+
+            alert("Не вдалося встановити адресу.");
+
+            $(".address-group").removeClass("has-success").addClass("has-error");
+            $(".address-group").find(".help-block").css("display", "inline-block");
+
+            $(".order-time").text("невідомий");
+            $(".order-address").text("невідома");
+
+        } else {
+
+            GoogleMaps.calculateRoute(new google.maps.LatLng(50.464379, 30.519131), location, function (err, data) {
+
+                if (!err)
+                    $(".order-time").text(data.duration.text);
+                else
+                    console.log(err);
+
+            });
+
+            $(".address-group").removeClass("has-error").addClass("has-success");
+            $(".address-group").find(".help-block").css("display", "none");
+
+            contact_info.address = $("#inputAddress").val();
+            Storage.set("info", contact_info);
+
+            $(".order-address").text($("#inputAddress").val());
+        }
+    });
 
 }
 
@@ -77,15 +103,17 @@ function readData() {
 
     addressValid();
 
-    var valid = nameValid() && phoneValid();
+    var valid = nameValid() && phoneValid() && $(".order-time").text() != "невідомий";
 
     if (valid) {
 
         API.createOrder({
+
             name: $("#inputName").val(),
             phone: $("#inputPhone").val(),
             address: $("#inputAddress").val(),
             order: PizzaCart.getPizzaInCart()
+
         }, function (err, data) {
 
             if (err) {
@@ -142,16 +170,11 @@ function initializeOrder() {
     });
 }
 
-$("#inputName").keyup(function () {
-
-    nameValid();
-
-});
+$("#inputName").keyup(nameValid);
 
 $("#inputPhone").keyup(function () {
-
     phoneValid();
-
+    console.log("key up is called");
 });
 
 $("#inputAddress").keyup(function (key) {
@@ -160,10 +183,6 @@ $("#inputAddress").keyup(function (key) {
 
 });
 
-$next.click(function () {
-
-    readData();
-
-});
+$next.click(readData);
 
 exports.initializeOrder = initializeOrder;
