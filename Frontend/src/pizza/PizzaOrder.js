@@ -42,23 +42,23 @@ function nameValid() {
 
 function phoneValid() {
 
-        if ((!/^[+]?(38)?([0-9]{10})$/.test($("#inputPhone").val()) && (!/^0?([0-9]{9})$/.test($("#inputPhone").val())))) {
+    if ((!/^[+]?(38)?([0-9]{10})$/.test($("#inputPhone").val()) && (!/^0?([0-9]{9})$/.test($("#inputPhone").val())))) {
 
-            $(".phone-group").removeClass("has-success").addClass("has-error");
-            $(".phone-group").find(".help-block").css("display", "inline-block");
+        $(".phone-group").removeClass("has-success").addClass("has-error");
+        $(".phone-group").find(".help-block").css("display", "inline-block");
 
-            return false;
+        return false;
 
-        } else {
+    } else {
 
-            $(".phone-group").removeClass("has-error").addClass("has-success");
-            $(".phone-group").find(".help-block").css("display", "none");
+        $(".phone-group").removeClass("has-error").addClass("has-success");
+        $(".phone-group").find(".help-block").css("display", "none");
 
-            contact_info.phone = $("#inputPhone").val();
-            Storage.set("info", contact_info);
+        contact_info.phone = $("#inputPhone").val();
+        Storage.set("info", contact_info);
 
-            return true;
-
+        return true;
+    }
 
 }
 
