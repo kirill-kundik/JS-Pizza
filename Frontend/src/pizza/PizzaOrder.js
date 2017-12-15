@@ -123,7 +123,7 @@ function readData() {
 
             } else {
 
-                //TODO liqpay checkout...
+                LiqPay.initLiqPay();
 
             }
         });

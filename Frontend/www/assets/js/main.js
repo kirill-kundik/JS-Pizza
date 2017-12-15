@@ -216,8 +216,44 @@ exports.geocodeAddress = geocodeAddress;
 exports.calculateRoute = calculateRoute;
 exports.initialize = initialize;
 },{}],3:[function(require,module,exports){
+function initLiqPay() {
+    var sum = require('./pizza/PizzaCart').getPizzaSum();
+    var pizzas_in_order = "";
 
-},{}],4:[function(require,module,exports){
+    require('./pizza/PizzaCart').getPizzaInCart().forEach(function (t) {
+        pizzas_in_order += "- " + t.quantity + "шт. [" + (t.size === 'big_size' ? 'Велика' : 'Мала') + "] "
+            + t.pizza.title + ";\n";
+    });
+
+    var order_info = {
+        amount: sum,
+        description: 'Замовлення піци: ' + $('#inputName').val() + '\n' +
+        'Адреса доставки: ' + $("#inputAddress").val() + '\n' +
+        'Телефон: ' + $('#inputPhone').val() + '\n' +
+        pizzas_in_order +
+        '\nРазом ' + sum + 'грн'
+    };
+    require('./API').createOrder(order_info, function (err, data) {
+        if (!err) {
+            LiqPayCheckout.init({
+                data: data.data,
+                signature: data.signature,
+                embedTo: "#liqpay",
+                mode: "popup"  //  embed  ||  popup
+            }).on("liqpay.callback", function (data) {
+                console.log(data.status);
+                console.log(data);
+            }).on("liqpay.ready", function (data) {
+                //  ready
+            }).on("liqpay.close", function (data) {
+                //  close
+            });
+        }
+    });
+}
+
+exports.initLiqPay = initLiqPay;
+},{"./API":1,"./pizza/PizzaCart":8}],4:[function(require,module,exports){
 /**
  * created by Kirill on 2.12.2017
  */
@@ -641,6 +677,18 @@ function updateCart() {
     });
 }
 
+function getPizzaSum() {
+    var sum = 0;
+    Cart.forEach(function (t) {
+
+        sum += parseInt(t.pizza[t.size].price) * parseInt(t.quantity);
+
+    });
+    return sum;
+}
+
+exports.getPizzaSum = getPizzaSum;
+
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
@@ -848,7 +896,7 @@ function readData() {
 
             } else {
 
-                //TODO liqpay checkout...
+                LiqPay.initLiqPay();
 
             }
         });
@@ -1300,8 +1348,8 @@ exports.initializeOrder = initializeOrder;
 })();
 
 },{}],12:[function(require,module,exports){
-arguments[4][3][0].apply(exports,arguments)
-},{"dup":3}],13:[function(require,module,exports){
+
+},{}],13:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)

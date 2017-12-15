@@ -192,6 +192,18 @@ function updateCart() {
     });
 }
 
+function getPizzaSum() {
+    var sum = 0;
+    Cart.forEach(function (t) {
+
+        sum += parseInt(t.pizza[t.size].price) * parseInt(t.quantity);
+
+    });
+    return sum;
+}
+
+exports.getPizzaSum = getPizzaSum;
+
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
