@@ -69,17 +69,28 @@
 
             text-decoration: none;
 
+            border: 0;
+            background: transparent;
+
         }
 
         .link:hover {
 
             text-decoration: none;
+            border: 0;
 
         }
 
         .link:active {
 
             text-decoration: none;
+            border: 0;
+
+        }
+
+        .link:visited {
+
+            border: 0;
 
         }
 
@@ -151,9 +162,40 @@
 
         }
 
+        #return-to-list {
+
+            position: relative;
+            margin-top: 45px;
+            left: 10px;
+            width: @rightColumnWidth - 25px;
+            color: #111111;
+            text-shadow: #676767;
+            background: linear-gradient(rgb(242, 242, 242), #b5b5b5);
+            border-color: darken(#b5b5b5, 5%);
+
+            &:hover {
+
+                background: linear-gradient(darken(rgb(242, 242, 242), 5%), darken(#b5b5b5, 5%));
+
+            }
+
+            &:active {
+
+                background: linear-gradient(darken(rgb(242, 242, 242), 10%), darken(#b5b5b5, 10%));
+                border-color: darken(#b5b5b5, 15%);
+                color: #111111;
+                text-shadow: #676767;
+
+            }
+        }
+
     }
 
     .order-list {
+
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 75%;
 
         .item {
 
@@ -179,12 +221,6 @@
 
                 font-size: 22px;
                 color: @mainColor;
-
-            }
-
-            .name::after {
-
-                content: " (Мала)";
 
             }
 

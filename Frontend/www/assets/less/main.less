@@ -2,54 +2,71 @@
 @color-one-button: #ffac00;
 @color-two-button: #ffcc1b;
 @rightColumnWidth: 330px;
+@footerHeight: 120px;
+@paddingTopMain: 100px;
 
 @import "pizza/pizza-card";
 @import "pizza/header";
 @import "pizza/inner";
 @import "pizza/right-column";
 @import "pizza/budges";
+@import "pizza/order";
 
 body {
 
-  background-color: #fff0d6;
+    background-color: #fff0d6;
 
-  .main-site {
+    .main-site {
 
-    padding: 0 @rightColumnWidth+25px 0 25px;
-    height: 100%;
+        padding: @paddingTopMain @rightColumnWidth+25px 0 25px;
+        height: 100%;
 
-  }
+    }
 
-  .btn {
+    .btn {
 
-    display: inline-block;
+        display: inline-block;
 
-    background: linear-gradient(@color-one-button, @color-two-button);
-    color: white;
+        background: linear-gradient(@color-one-button, @color-two-button);
+        color: white;
 
-    border: 1px solid @mainColor;
+        border: 1px solid @mainColor;
 
-  }
+    }
 
-  .btn:hover {
+    .btn:hover {
 
-    color: white;
-    border: 1px solid @mainColor;
+        color: white;
+        border: 1px solid @mainColor;
 
-  }
+    }
 
-  .btn:link {
+    .btn:link {
 
-    color: white;
-    border: 1px solid @mainColor;
+        color: white;
+        border: 1px solid @mainColor;
 
-  }
+    }
 
-  .btn:visited {
+    .btn:visited {
 
-    color: white;
-    border: 1px solid @mainColor
+        color: white;
+        border: 1px solid @mainColor
 
-  }
+    }
+
+}
+
+.footer {
+
+    height: @footerHeight;
+    width: 100%;
+    padding-right: @rightColumnWidth;
+    padding-top: 40px;
+    text-align: center;
+    font-size: 15px;
+    color: #676767;
+    background: rgb(240, 240, 240);
+    border-top: #bfbfbf 1px solid;
 
 }
